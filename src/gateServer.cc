@@ -46,6 +46,11 @@
 #undef USE_LINUX_PROC_FOR_CPU
 #endif
 
+#if defined(__MINGW32__) || defined(__MINGW64__)
+  #define WINVER 0x0501
+  #define _WIN32_WINNT 0x0601
+#endif
+
 #ifdef _WIN32
   #ifdef _WIN64
     #define NO_OF_CPUS GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS)

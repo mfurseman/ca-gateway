@@ -27,7 +27,13 @@ endif
 
 ifeq ($(USE_PCRE),YES)
   USR_CXXFLAGS += -DUSE_PCRE
+
   ifeq ($(OS_CLASS),WIN32)
+    ifeq ($(STATIC_BUILD), YES)
+      # Definition is required to prevent the PCRE header from declaring names
+      # with munged DLL symbols.
+      CPPFLAGS += -DPCRE_STATIC
+    endif
     USR_INCLUDES += -I$(PCRE_DIR)/inc
     PROD_LIBS += pcre3
     ifeq ($(CMPLR_CLASS),msvc)
